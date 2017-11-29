@@ -104,7 +104,7 @@ Most codes are made by PocketMine team and licensed under GPLv3. Some AI is prop
 * New AI for all creatures
 * LevelDB support for Windows
 
-### Servers (for mcpe 0.14.2,0.14.3.Maybe and 0.14.0-0.14.1)
+### Servers (for mcpe 0.14x.Some servers may support only mcpe 0.14.3 version.)
 https://minecraftpocket-servers.com/version/0_14_3_alpha/
 
 ## 中文版本
