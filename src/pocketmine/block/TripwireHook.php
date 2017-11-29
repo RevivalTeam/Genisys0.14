@@ -21,24 +21,54 @@
 
 namespace pocketmine\block;
 
-class TripwireHook extends Solid {
+use pocketmine\item\Item;
+use pocketmine\level\Level;
+use pocketmine\math\Vector2;
+use pocketmine\math\Vector3;
+use pocketmine\Player;
 
-    protected $id = self::TRIPWIRE_HOOK;
+class TripwireHook extends Flowable {
 
-    public function __construct($meta = 0){
-        $this->meta = $meta;
-    }
+	protected $id = Block::TRIPWIRE_HOOK;
 
-    public function getName() :string {
-        return "Tripwire Hook";
-    }
+	/**
+	 * TripwireHook constructor.
+	 *
+	 * @param int $meta
+	 */
+	public function __construct(int $meta = 0){
+		$this->meta = $meta;
+	}
 
-    public function getHardness() {
-        return 0;
-    }
+	/**
+	 * @return string
+	 */
+	public function getName() : string{
+		return "Tripwire Hook";
+	}
 
-    public function getResistance(){
-        return 0;
-    }
-    
+	/**
+	 * @return int
+	 */
+	public function getHardness(){
+		return 0;
+	}
+
+	/**
+	 * @return int
+	 */
+	public function getResistance(){
+		return 0;
+	}
+
+	public function place(Item $item, Block $block, Block $target, $face, $fx, $fy, $fz, Player $player = null) : bool{
+		if($face !== Vector3::SIDE_DOWN and $face !== Vector3::SIDE_UP and !$target->isTransparent()){
+			$this->meta = Vector2::vec3SideToDirection($face);
+
+			return parent::place($item, $block, $target, $face, $fx, $fy, $fz, $player);
+		}
+
+		return false;
+	}
+
 }
