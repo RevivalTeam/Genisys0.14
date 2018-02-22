@@ -30,6 +30,7 @@ use pocketmine\event\entity\EntityDeathEvent;
 use pocketmine\event\entity\EntityRegainHealthEvent;
 use pocketmine\event\Timings;
 use pocketmine\item\Item as ItemItem;
+use pocketmine\level\particle\CriticalParticle;
 use pocketmine\math\Vector3;
 use pocketmine\nbt\tag\ShortTag;
 use pocketmine\network\Network;
@@ -102,6 +103,18 @@ abstract class Living extends Entity implements Damageable{
 			$lastCause = $this->getLastDamageCause();
 			if($lastCause !== null and $lastCause->getDamage() >= $damage){
                 $source->setCancelled();
+			}
+		}
+		if($source instanceof EntityDamageByEntityEvent){
+			$damager = $source->getDamager();
+			if($damager instanceof Player){
+				if($source->getCause() === EntityDamageEvent::CAUSE_ENTITY_ATTACK and !$damager->isFlying() and $damager->fallDistance > 0 and !$damager->isSprinting() and !$damager->hasEffect(Effect::BLINDNESS) and !$damager->isInsideOfWater()){
+					//Critical hit
+					for($i = 0; $i < 15; $i++){
+						$this->level->addParticle(new CriticalParticle(new Vector3($this->x + mt_rand(-5, 5) / 10, $this->y + mt_rand(0, 20) / 10, $this->z + mt_rand(-5, 5) / 10)));
+					}
+					$source->setDamage($source->getDamage() / 2, EntityDamageEvent::MODIFIER_CRITICAL);
+				}
 			}
 		}
 
