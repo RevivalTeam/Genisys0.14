@@ -3527,7 +3527,7 @@ class Player extends Human implements CommandSender, InventoryHolder, ChunkLoade
 				}
 
 				/** @var Item[] $ingredients */
-				$canCraft = true;//0.13.1大量物品本地配方出现问题,无法解决,使用极端(唯一)方法修复.
+				$canCraft = true;//0.13.1ÃÂÃÂ¥ÃÂÃÂ¤ÃÂÃÂ§ÃÂÃÂ©ÃÂÃÂÃÂÃÂÃÂÃÂ§ÃÂÃÂÃÂÃÂ©ÃÂÃÂ¥ÃÂÃÂÃÂÃÂÃÂÃÂ¦ÃÂÃÂÃÂÃÂ¬ÃÂÃÂ¥ÃÂÃÂÃÂÃÂ°ÃÂÃÂ©ÃÂÃÂÃÂÃÂÃÂÃÂ¦ÃÂÃÂÃÂÃÂ¹ÃÂÃÂ¥ÃÂÃÂÃÂÃÂºÃÂÃÂ§ÃÂÃÂÃÂÃÂ°ÃÂÃÂ©ÃÂÃÂÃÂÃÂ®ÃÂÃÂ©ÃÂÃÂ¢ÃÂÃÂ,ÃÂÃÂ¦ÃÂÃÂÃÂÃÂ ÃÂÃÂ¦ÃÂÃÂ³ÃÂÃÂÃÂÃÂ¨ÃÂÃÂ§ÃÂÃÂ£ÃÂÃÂ¥ÃÂÃÂÃÂÃÂ³,ÃÂÃÂ¤ÃÂÃÂ½ÃÂÃÂ¿ÃÂÃÂ§ÃÂÃÂÃÂÃÂ¨ÃÂÃÂ¦ÃÂÃÂÃÂÃÂÃÂÃÂ§ÃÂÃÂ«ÃÂÃÂ¯(ÃÂÃÂ¥ÃÂÃÂÃÂÃÂ¯ÃÂÃÂ¤ÃÂÃÂ¸ÃÂÃÂ)ÃÂÃÂ¦ÃÂÃÂÃÂÃÂ¹ÃÂÃÂ¦ÃÂÃÂ³ÃÂÃÂÃÂÃÂ¤ÃÂÃÂ¿ÃÂÃÂ®ÃÂÃÂ¥ÃÂÃÂ¤ÃÂÃÂ.
 				$ingredients = $packet->input;
 				$result = $packet->output[0];
 
@@ -3673,7 +3673,8 @@ class Player extends Human implements CommandSender, InventoryHolder, ChunkLoade
 					break;
 				}
 
-				if($transaction->getSourceItem()->deepEquals($transaction->getTargetItem()) and $transaction->getTargetItem()->getCount() === $transaction->getSourceItem()->getCount()){ //No changes!
+		$sourceItem = $transaction->getInventory()->getItem($transaction->getSlot());
+		if($sourceItem->deepEquals($transaction->getTargetItem()) and $transaction->getTargetItem()->getCount() === $sourceItem->getCount()){ //No changes!
 					//No changes, just a local inventory update sent by the server
 					break;
 				}
