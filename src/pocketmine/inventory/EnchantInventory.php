@@ -78,8 +78,8 @@ class EnchantInventory extends ContainerInventory{
 		return $min + mt_rand() / mt_getrandmax() * ($max - $min);
 	}
 
-	public function onSlotChange($index, $before){
-		parent::onSlotChange($index, $before);
+	public function onSlotChange($index, $before, $send){
+		parent::onSlotChange($index, $before, $send);
 
 		if($index == 0){
 			$item = $this->getItem(0);
